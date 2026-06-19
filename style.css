@@ -1,0 +1,91 @@
+.closebutton {
+    margin-left:auto;
+    width:16px ;
+    height: 16px;
+    cursor: pointer;
+    background-color: #d6392b; 
+    border-radius: 16px; 
+    border: solid 1px rgba(0, 0, 0, 0.486); 
+    margin-right: 16px;
+}
+
+
+.sidebar {
+    display:flex;
+    align-items:center;
+     box-sizing:border-box;
+      height:48px;
+       padding:16px; 
+       border-radius:16px; 
+       justify-content:space-between; 
+       backdrop-filter:blur(14px);
+        background-color:rgba(0, 234, 255, 0.275); 
+        color:#e0e0e0;
+        position:fixed; 
+        bottom:0;
+         left:0;
+     width:100%
+}
+
+
+.window{
+    position:absolute; 
+    top:120px;
+    left:40px;
+    height: 724px;
+    width:600px; 
+    border-radius:16px; 
+    background-color:rgba(61, 61, 61, 0.19); 
+    backdrop-filter:blur(14px);
+    position:fixed;
+    top:0; 
+    left:0;
+    z-index: 999;
+    
+}
+
+.header{
+    display:flex; 
+    align-items:center; 
+    cursor:move; 
+    height:32px; 
+    width:100%; 
+    box-sizing:border-box;
+    background-color:rgba(140, 140, 140, 0.315); 
+    border-radius:16px 16px 0 0
+}
+
+
+.desktopApp{
+    padding-top:32px;
+    padding-left:32px;
+    position:fixed; 
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    cursor: pointer;
+    text-align: center;
+}
+
+.bold_font{
+    color:#ffffff;
+    font-weight:bold;
+}
+
+.appIcons{
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+
+}
+
+
+.background{
+    position:fixed; 
+    top:0; 
+    left:0;
+    width:100%; 
+    height:100%; 
+    object-fit:cover; 
+    z-index:-1
+}
