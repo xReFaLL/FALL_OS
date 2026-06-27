@@ -34,7 +34,7 @@
     position:fixed; 
     bottom:0;
     left:0;
-    width:100%
+    width:100%;
 }
 
 
@@ -67,6 +67,10 @@
     top:0; 
     left:0;
     z-index: 999;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     
 }
 
@@ -152,6 +156,16 @@
     flex-direction: column;
     align-items: center;
 }
+
+.sidebarApp{
+    cursor: pointer;
+    text-align: center;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .bold_font{
     color:#ffffff;
@@ -651,3 +665,195 @@
 .wallpaperThumb:hover{
     border: 2px solid #ffffff;
 }
+
+
+.killbutton {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #d6392b;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.181);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hidebutton {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #f5a523be;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.181);
+    margin-left: auto;
+}
+
+.fullscreenbutton {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #1bbc33;
+    border-radius: 8px;
+    border: solid 1px rgba(0,0,0,0.181);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.window-buttons {
+    display: flex ;
+    flex-direction: row;
+    margin-left: auto;
+    padding:16px;
+    align-items:center;
+    gap: 12px;
+}
+
+
+.hidebutton:hover {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #ff9d00;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.181);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.fullscreenbutton:hover {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #00ff26;
+    border-radius: 8px;
+    border: solid 1px rgba(0,0,0,0.181);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.killbutton:hover {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-color: #ff1500;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.181);
+    margin-left: auto;
+}
+
+
+.window, .window-welcome, .window-barca, .window-resonant, .window-browser, .window-notes {
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebarApps {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+}
+
+
+
+
+.btn-hover {
+    width: 10px;
+    height: 10px;
+    display: none;
+    object-fit: contain;
+}
+
+.btn-fullscreened {
+    width: 10px;
+    height: 10px;
+    display: none;
+    object-fit: contain;
+}
+
+.killbutton:hover .btn-hover { display: block; }
+.hidebutton:hover .btn-hover { display: block; }
+.fullscreenbutton:hover .btn-hover { display: block; }
+
+.window-barca, .window-resonant, .window-browser, .window { 
+    display: flex; 
+    flex-direction: column; 
+}
+
+
+
+.window-terminal {
+    position:absolute; 
+    top:120px;
+    left:40px;
+    height: 724px;
+    width:896px; 
+    border-radius:16px; 
+    background-color:rgba(61, 61, 61, 0.19); 
+    backdrop-filter:blur(14px);
+    position:fixed;
+    top:0; 
+    left:0;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.terminal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    overflow: hidden;
+}
+
+.terminal-output {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.terminal-output::-webkit-scrollbar { width: 4px; }
+.terminal-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+.terminal-line {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    caret-color: #00ff00;
+}
+
+.terminal-green  { color: #03c945; }
+.terminal-cyan   { color: #007b99; }
+.terminal-white  { color: #ffffff; }
+.terminal-yellow { color: #ecd100; }

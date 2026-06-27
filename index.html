@@ -8,19 +8,40 @@
   <img src="./backgrounds/background.gif" class="background">
   <div class="sidebar">
     <div style="font-size:1.4rem;"><img src="./icons/FALLOS.png" class="logo" id="welcomeopen" ></div>
+    <div class="sidebarApps">
+      <div class="sidebarApp" id="sidebar-music" data-app="window-music">
+          <img src="./icons/MUSIC.png" class="logo">
+      </div>
+      <div class="sidebarApp" id="sidebar-browser" data-app="window-browser">
+          <img src="./icons/VELA.png" class="logo">
+      </div>
+      <div class="sidebarApp" id="sidebar-notes" data-app="window-notes">
+          <img src="./icons/NOTES.png" class="logo">
+      </div>
+      <div class="sidebarApp" id="sidebar-canvas" data-app="window-wallpaper">
+          <img src="./icons/Canvas.png" class="logo">
+      </div>
+      <div class="sidebarApp" id="sidebar-terminal" data-app="window-terminal">
+          <img src="./icons/Terminal.png" class="logo">
+      </div>
+    </div>
     <div><p id="clock" style="font-size:1.4rem">Time</p></div>
   </div> 
   <div class="window-welcome" id="window">
     <div class="header" id="welcomeheader">
       <p style="margin-left:16px; color: #ffffff; font-weight: 500">Hello!</p>
-      <div class="closebutton" id="welcomeclose"></div>
+      <div class="window-buttons">
+        <div class="hidebutton" id="welcomehide"><img class="btn-hover" src="./icons/minus.png"></div>
+        <div class="fullscreenbutton" id="welcomefullscreen"> <img class="btn-hover" src="./icons/fullscreen.png"></div>
+        <div class="killbutton" id="welcomeclose"><img class="btn-hover" src="./icons/cross.png"></div>
+      </div>
     </div>
     <div style="padding:0 16px 16px; color: #ffffff">
     <h1>Welcome To <span style="color:#55c5f5; font-weight:bold;">FaLL OS</span></h1>
     <h2>Introduction</h2>
     <p>Fall OS is a WebOS created in the context of the StarDance event.<br>
     While it is very bad, it still is better than nothing, Here's a little quote for you guys:<br>
-    <blockquote style="color:rgb(18, 231, 255); font-weight:bold;">"No matter how ridiculous the odds may seem, within us resides the power to overcome those challenges and achieve something beautiful and one day , we'll look back at where we started and be amazed by how far we've come" -Technoblade</blockquote></p>
+    <blockquote style="color:rgb(255, 255, 255); font-weight:bold;">"No matter how ridiculous the odds may seem, within us resides the power to overcome those challenges and achieve something beautiful and one day , we'll look back at where we started and be amazed by how far we've come" -Technoblade</blockquote></p>
     <div>
       <img src="./icons/FALLOS.png" style="width:296px; height:296px; border-radius:120px; object-fit:cover;">
     </div>
@@ -59,11 +80,21 @@
     <p style="margin:0px;align-items:center;" class="bold_font">Canvas</p>
   </div>
 </div>
+<div class="desktopApp" id="terminal-app" data-app="window-terminal">
+  <div style="padding: 16px; filter: drop-shadow(0 0 8px rgb(0, 0, 0)); width:fit-content">
+    <img src="./icons/Terminal.png" class="appIcons">
+    <p style="margin:0px;align-items: center;" class="bold_font">Terminal</p>
+  </div>
+</div>
 </div>
 <div class="window-barca" id="window-barca" style="display:none">
   <div class="header" id="window-barcaheader">
     <p style="margin-left:16px; color: #ffffff; font-weight: 500">Barca's Anthem</p>
-    <div class="closebutton" id="barcaclose"></div>
+        <div class="window-buttons">
+          <div class="hidebutton" id="barcahide"><img class="btn-hover" src="./icons/minus.png"></div>
+          <div class="fullscreenbutton" id="barcafullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+          <div class="killbutton" id="barcaclose"><img class="btn-hover" src="./icons/cross.png"></div>
+        </div>
   </div>
   <h3>Barca's Legendary Chant: <span style="color:#004D98">Cant del </span><span style="color:#c32149;font-style:bold;">Barça</span></h3>
   <div style="padding-left:16px; color:#ffffff" id="barca_content_place">
@@ -72,7 +103,11 @@
 <div class="window-resonant" id="window-music" style="display:none">
   <div class="header" id="window-musicheader">
     <p style="margin-left:16px; color: #ffffff; font-weight: 500">Resonant - Music Player</p>
-    <div class="closebutton" id="musicclose"></div>
+          <div class="window-buttons">
+            <div class="hidebutton" id="musichide"><img class="btn-hover" src="./icons/minus.png"></div>
+            <div class="fullscreenbutton" id="musicfullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+            <div class="killbutton" id="musicclose"><img class="btn-hover" src="./icons/cross.png"></div>
+        </div>
   </div>
   
   <div style="padding-left:16px; color:#ffffff" id="music_content_place">
@@ -81,36 +116,59 @@
 <div class="window-browser" id="window-browser" style="display:none">
   <div class="header" id="window-browserheader">
     <p style="margin-left:16px; color: #ffffff; font-weight: 500">Vela - Web Browser</p>
-    <div class="closebutton" id="browserclose"></div>
+          <div class="window-buttons">
+          <div class="hidebutton" id="browserhide"><img class="btn-hover" src="./icons/minus.png"></div>
+          <div class="fullscreenbutton" id="browserfullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+          <div class="killbutton" id="browserclose"><img class="btn-hover" src="./icons/cross.png"></div>
+        </div>
   </div>
   <div id="browser_content_place"></div>
 </div>
 <div class="window-notes" id="window-notes" style="display:none">
   <div class="header" id="window-notesheader">
     <p style="margin-left:16px; color: #ffffff; font-weight: 500">Notes</p>
-    <div class="closebutton" id="notesclose"></div>
+          <div class="window-buttons">
+          <div class="hidebutton" id="noteshide"><img class="btn-hover" src="./icons/minus.png"></div>
+          <div class="fullscreenbutton" id="notesfullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+          <div class="killbutton" id="notesclose"><img class="btn-hover" src="./icons/cross.png"></div>
+        </div>
   </div>
   <div id="notes_content_place"></div>
 </div>
 <div class="window" id="window-wallpaper" style="display:none">
   <div class="header" id="window-wallpaperheader">
-    <p style="margin-left:16px; color:#ffffff; font-weight:500">Canvas - Wallpaper Changer</p>
-    <div class="closebutton" id="wallpaperclose"></div>
+    <p style="margin-left:16px; color:#ffffff; font-weight:500">Canvas - Wallpaper Libary</p>
+        <div class="window-buttons">
+          <div class="hidebutton" id="wallpaperhide"><img class="btn-hover" src="./icons/minus.png"></div>
+          <div class="fullscreenbutton" id="wallpaperfullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+          <div class="killbutton" id="wallpaperclose"><img class="btn-hover" src="./icons/cross.png"></div>
+        </div>
   </div>
   <div style="padding:16px; display:flex; gap:12px; flex-wrap:wrap;">
     <img src="./backgrounds/background.gif" class="wallpaperThumb" data-bg="./backgrounds/background.gif">
     <img src="./backgrounds/background2.jpg" class="wallpaperThumb" data-bg="./backgrounds/background2.jpg">
-    <img src="./backgrounds/background3.jpg" class="wallpaperThumb" data-bg="./backgrounds/background3.jpg">
-    <img src="./backgrounds/background4.jpg" class="wallpaperThumb" data-bg="./backgrounds/background4.jpg">
+    <img src="./backgrounds/background3.png" class="wallpaperThumb" data-bg="./backgrounds/background3.png">
+    <img src="./backgrounds/background4.png" class="wallpaperThumb" data-bg="./backgrounds/background4.png">
     <img src="./backgrounds/background5.jpg" class="wallpaperThumb" data-bg="./backgrounds/background5.jpg">
     <img src="./backgrounds/background6.jpg" class="wallpaperThumb" data-bg="./backgrounds/background6.jpg">
     <img src="./backgrounds/background7.jpg" class="wallpaperThumb" data-bg="./backgrounds/background7.jpg">
     <img src="./backgrounds/background8.jpg" class="wallpaperThumb" data-bg="./backgrounds/background8.jpg">
-    <img src="./backgrounds/background9.jpeg" class="wallpaperThumb" data-bg="./backgrounds/background9.jpeg">
+    <img src="./backgrounds/background9.jpg" class="wallpaperThumb" data-bg="./backgrounds/background9.jpg">
+    <img src="./backgrounds/background10.jpg" class="wallpaperThumb" data-bg="./backgrounds/background10.jpg">
   </div>
 </div>
-  <script src="./script.js" type="module">
-  </script>
+<div class="window-terminal" id="window-terminal" style="display:none">
+  <div class="header" id="window-terminalheader">
+    <p style="margin-left:16px; color:#ffffff; font-weight:500">FaLL Terminal</p>
+    <div class="window-buttons">
+      <div class="hidebutton" id="terminalhide"><img class="btn-hover" src="./icons/minus.png"></div>
+      <div class="fullscreenbutton" id="terminalfullscreen"><img class="btn-hover" src="./icons/fullscreen.png"></div>
+      <div class="killbutton" id="terminalclose"><img class="btn-hover" src="./icons/cross.png"></div>
+    </div>
+  </div>
+  <div id="terminal_content_place" style="flex:1; overflow:hidden; display:flex; flex-direction:column;"></div>
+</div>
+  <script src="./script.js" type="module"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </body>
 </html>

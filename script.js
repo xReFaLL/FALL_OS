@@ -8,90 +8,143 @@ function clockTime() {
     clockTime()
 
 
+var highestZ = 1000;
+function focusWindow(element) {
+  highestZ++;
+  element.style.zIndex = highestZ;
+}
+
+function toggleFullscreen(windowElement) {
+  if (windowElement.dataset.fullscreen === "true") {
+    windowElement.style.width = "";
+    windowElement.style.height = "";
+    windowElement.style.top = "";
+    windowElement.style.left = "";
+    windowElement.style.borderRadius = "16px";
+    windowElement.dataset.fullscreen = "false";
+    windowElement.classList.remove("is-fullscreen");
+  } else {
+    windowElement.style.width = "100vw";
+    windowElement.style.height = "calc(100vh - 48px)";
+    windowElement.style.top = "0";
+    windowElement.style.left = "0";
+    windowElement.style.borderRadius = "0";
+    windowElement.dataset.fullscreen = "true";
+    windowElement.classList.add("is-fullscreen");
+  }
+}
 
 
 //Window function
-// Make the DIV element draggable:
 dragElement(document.getElementById("window"));  
 
 
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
+
+
 function dragElement(element) {
-  // Step 2: Set up variables to keep track of the element's position.
+
   var initialX = 0;
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
 
-  // Step 3: Check if there is a special header element associated with the draggable element.
+  
   if (document.getElementById(element.id + "header")) {
-    // Step 4: If present, assign the `dragMouseDown` function to the header's `onmousedown` event.
-    // This allows you to drag the window around by its header.
+
+    
     document.getElementById(element.id + "header").onmousedown = startDragging;
   } else {
-    // Step 5: If not present, assign the function directly to the draggable element's `onmousedown` event.
-    // This allows you to drag the window by holding down anywhere on the window.
+ 
+
     element.onmousedown = startDragging;
   }
+   element.addEventListener("mousedown", function() {
+    focusWindow(element);
+  });
 
-  // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
   function startDragging(e) {
     e = e || window.event;
     e.preventDefault();
-    // Step 7: Get the mouse cursor position at startup.
+    
     initialX = e.clientX;
     initialY = e.clientY;
-    // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
+    element.style.transition = "none";
     document.onmouseup = stopDragging;
     document.onmousemove = dragElement;
   }
 
-  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
+  
   function dragElement(e) {
     e = e || window.event;
     e.preventDefault();
-    // Step 10: Calculate the new cursor position.
+
     currentX = initialX - e.clientX;
     currentY = initialY - e.clientY;
     initialX = e.clientX;
     initialY = e.clientY;
-    // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
+
     element.style.top = (element.offsetTop - currentY) + "px";
     element.style.left = (element.offsetLeft - currentX) + "px";
   }
 
-  // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
   function stopDragging() {
     document.onmouseup = null;
     document.onmousemove = null;
+    element.style.transition = ""; 
   }
 }
+
+
 
 
 //
 var welcomeScreen = document.getElementById("window");
 
 function openWindow(element) {
-  element.style.display = "block"
+  element.style.display = "block";
+  element.style.pointerEvents = "all";
+  requestAnimationFrame(function() {
+    element.style.opacity = "1";
+  });
 }
 
 function closeWindow(element) {
-  element.style.display = "none"
+  element.style.opacity = "0";
+  element.style.pointerEvents = "none";
+  setTimeout(function() { element.style.display = "none"; }, 300);
+}
+
+function hideWindow(element) {
+  element.style.opacity = "0";
+  element.style.pointerEvents = "none";
+  setTimeout(function() { element.style.display = "none"; }, 300);
+}
+
+function killWindow(element) {
+  element.style.opacity = "0";
+  element.style.pointerEvents = "none";
+  setTimeout(function() {
+    element.style.display = "none";
+    element.dataset.fullscreen = "false";
+    element.style.width = "";
+    element.style.height = "";
+    element.style.top = "";
+    element.style.left = "";
+    element.style.borderRadius = "16px";
+    element.classList.remove("is-fullscreen");
+  }, 300);
 }
 
 
-var welcomeScreenClose = document.querySelector("#welcomeclose")
 
-var welcomeScreenOpen = document.querySelector("#welcomeopen")
 
-welcomeScreenClose.addEventListener("click", function() {
-  closeWindow(welcomeScreen);
+document.getElementById("welcomeclose").addEventListener("click", function() { killWindow(document.getElementById("window")); });
+document.getElementById("welcomehide").addEventListener("click", function() { hideWindow(document.getElementById("window")); });
+document.getElementById("welcomefullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window")); });
+
+document.getElementById("welcomeopen").addEventListener("click", function() {
+  openWindow(document.getElementById("window"));
 });
-
-welcomeScreenOpen.addEventListener("click", function() {
-  openWindow(welcomeScreen);
-});
-
 
 
 //Opening window setup
@@ -127,9 +180,9 @@ function handleIconTap(element) {
 //Barca app window setup
 dragElement(document.getElementById("window-barca"));
 
-document.getElementById("barcaclose").addEventListener("click", function() {
-  closeWindow(document.getElementById("window-barca"));
-});
+document.getElementById("barcaclose").addEventListener("click", function() { killWindow(document.getElementById("window-barca")); });
+document.getElementById("barcahide").addEventListener("click", function() { hideWindow(document.getElementById("window-barca")); });
+document.getElementById("barcafullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window-barca")); });  
 
 var appIcon = document.getElementById("app");
 appIcon.addEventListener("click", function() {
@@ -147,9 +200,6 @@ fetch("./barca_content.html")
 //Music app window setup
 dragElement(document.getElementById("window-music"));
 
-document.getElementById("musicclose").addEventListener("click", function() {
-  closeWindow(document.getElementById("window-music"));
-});
 
 var musicIcon = document.getElementById("music-app");
 musicIcon.addEventListener("click", function() {
@@ -321,13 +371,30 @@ audio.addEventListener("ended", function() { playSong(currentIndex + 1); });
   });
 
 
+document.getElementById("musicclose").addEventListener("click", function() {
+  var audio = document.getElementById("audio-player");
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  killWindow(document.getElementById("window-music"));
+});
+
+document.getElementById("musichide").addEventListener("click", function() {
+  hideWindow(document.getElementById("window-music"));
+});
+
+document.getElementById("musicfullscreen").addEventListener("click", function() {
+  toggleFullscreen(document.getElementById("window-music"));
+});
+
 
   // Vela browser app
 dragElement(document.getElementById("window-browser"));
 
-document.getElementById("browserclose").addEventListener("click", function () {
-  closeWindow(document.getElementById("window-browser"));
-});
+document.getElementById("browserclose").addEventListener("click", function() { killWindow(document.getElementById("window-browser")); });
+document.getElementById("browserhide").addEventListener("click", function() { hideWindow(document.getElementById("window-browser")); });
+document.getElementById("browserfullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window-browser")); });
 
 var browserIcon = document.getElementById("browser-app");
 browserIcon.addEventListener("click", function () {
@@ -371,9 +438,9 @@ document.querySelectorAll(".bookmark").forEach(function(btn) {
   // Notes app
 dragElement(document.getElementById("window-notes"));
 
-document.getElementById("notesclose").addEventListener("click", function () {
-  closeWindow(document.getElementById("window-notes"));
-});
+document.getElementById("notesclose").addEventListener("click", function() { killWindow(document.getElementById("window-notes")); });
+document.getElementById("noteshide").addEventListener("click", function() { hideWindow(document.getElementById("window-notes")); });
+document.getElementById("notesfullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window-notes")); });
 
 var notesIcon = document.getElementById("notes-app");
 notesIcon.addEventListener("click", function () {
@@ -466,9 +533,9 @@ fetch("./notes.html")
   // Wallpaper app setup
 dragElement(document.getElementById("window-wallpaper"));
 
-document.getElementById("wallpaperclose").addEventListener("click", function() {
-  closeWindow(document.getElementById("window-wallpaper"));
-});
+document.getElementById("wallpaperclose").addEventListener("click", function() { killWindow(document.getElementById("window-wallpaper")); });
+document.getElementById("wallpaperhide").addEventListener("click", function() { hideWindow(document.getElementById("window-wallpaper")); });
+document.getElementById("wallpaperfullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window-wallpaper")); });
 
 var wallpaperIcon = document.getElementById("wallpaper-app");
 wallpaperIcon.addEventListener("click", function() {
@@ -478,6 +545,182 @@ wallpaperIcon.addEventListener("click", function() {
 var thumbs = document.querySelectorAll(".wallpaperThumb");
 thumbs.forEach(function(thumb) {
   thumb.addEventListener("click", function() {
-    document.querySelector(".background").src = thumb.dataset.bg;
+    var newBg = thumb.dataset.bg;
+    document.querySelector(".background").src = newBg;
+    localStorage.setItem("fallos-wallpaper", newBg);
   });
+});
+var savedWallpaper = localStorage.getItem("fallos-wallpaper");
+if (savedWallpaper) {
+  document.querySelector(".background").src = savedWallpaper;
+}
+
+document.getElementById("musicclose").addEventListener("click", function() {
+  var audio = document.getElementById("audio-player");
+  if (audio) { audio.pause(); audio.currentTime = 0; }
+  killWindow(document.getElementById("window-music"));
+});
+
+document.getElementById("musichide").addEventListener("click", function() {
+  hideWindow(document.getElementById("window-music"));
+});
+
+
+
+
+// Sidebar wiring
+
+document.getElementById("sidebar-music").addEventListener("click", function() {
+  handleIconTap(document.getElementById("music-app"));
+});
+
+document.getElementById("sidebar-browser").addEventListener("click", function() {
+  handleIconTap(document.getElementById("browser-app"));
+});
+
+document.getElementById("sidebar-notes").addEventListener("click", function() {
+  handleIconTap(document.getElementById("notes-app"));
+});
+
+
+
+// Terminal app
+dragElement(document.getElementById("window-terminal"));
+
+document.getElementById("terminalclose").addEventListener("click", function() { killWindow(document.getElementById("window-terminal")); });
+document.getElementById("terminalhide").addEventListener("click", function() { hideWindow(document.getElementById("window-terminal")); });
+document.getElementById("terminalfullscreen").addEventListener("click", function() { toggleFullscreen(document.getElementById("window-terminal")); });
+
+var terminalIcon = document.getElementById("terminal-app");
+terminalIcon.addEventListener("click", function() {
+  handleIconTap(terminalIcon);
+});
+
+fetch("./terminal.html")
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById("terminal_content_place").innerHTML = html;
+
+    const output = document.getElementById("terminal-output");
+    const input  = document.getElementById("terminal-input");
+
+    const GOAT = `
+<span class="terminal-white">
+    /\\   /\\
+   (  o o  )
+   =( Y )=
+    )     (
+   (_)-(_)-
+</span>`;
+
+    const NEOFETCH = `
+<span class="terminal-cyan">        .        .        </span>  <span class="terminal-green">user</span><span class="terminal-white">@</span><span class="terminal-green">fallos</span>
+<span class="terminal-cyan">      .MMMMM.      </span>  <span class="terminal-white">-----------</span>
+<span class="terminal-cyan">    .MMMMMMMMM.    </span>  <span class="terminal-green">OS</span><span class="terminal-white">: FaLL OS v1.0</span>
+<span class="terminal-cyan">   .MM.     .MM.   </span>  <span class="terminal-green">Built by</span><span class="terminal-white">: Fares</span>
+<span class="terminal-cyan">  .MMMMMMMMMMMMM.  </span>  <span class="terminal-green">Stack</span><span class="terminal-white">: HTML CSS JS</span>
+<span class="terminal-cyan">  .MM.       .MM.  </span>  <span class="terminal-green">Apps</span><span class="terminal-white">: 7</span>
+<span class="terminal-cyan">   .MMMMMMMMMMM.   </span>  <span class="terminal-green">Context</span><span class="terminal-white">: StarDance</span>
+<span class="terminal-cyan">     .MMMMMMM.     </span>  <span class="terminal-green">Shell</span><span class="terminal-white">: FaLL Terminal</span>
+`;
+
+    const commands = {
+      help: `<span class="terminal-yellow">Available commands:</span>
+  <span class="terminal-green">help</span><span class="terminal-white">      — show this list</span>
+  <span class="terminal-green">neofetch</span><span class="terminal-white">  — system info</span>
+  <span class="terminal-green">about</span><span class="terminal-white">     — about FaLL OS</span>
+  <span class="terminal-green">clear</span><span class="terminal-white">     — clear terminal</span>
+  <span class="terminal-green">date</span><span class="terminal-white">      — current date and time</span>`,
+
+
+      neofetch: NEOFETCH,
+
+      about: `<span class="terminal-white">FaLL OS — A browser-based WebOS built in vanilla HTML, CSS and JS.
+Created for the StarDance event by Fares.
+Features draggable windows, a music player, web launcher,
+notes, wallpaper changer, and this terminal.</span>`,
+
+      date: `<span class="terminal-white">${new Date().toLocaleString()}</span>`,
+
+      fares: `<span class="terminal-green">Yes! That's my name!!</span>`,
+
+      barca: `<span style="color:#004D98;font-weight:bold;">Visca Barça</span> <span class="terminal-white">i</span> <span style="color:#FFED00;font-weight:bold;">Visca Catalunya!</span> 🔵🔴`,
+
+      messi: `<span class="terminal-green">🐐 GOAT 🐐</span>${GOAT}`,
+
+      twitter: `<span class="terminal-cyan">@ReFaLLTamaKi</span> — <span class="terminal-white">https://twitter.com/ReFaLLTamaKi</span>`,
+
+      ronaldo: `<span style="color:#ff4444;">statpad fraud</span>`,
+
+      fallos: `<span class="terminal-yellow">Resetting FaLL OS...</span>
+<span class="terminal-white">Clearing notes...</span>
+<span class="terminal-white">Restoring default wallpaper...</span>
+<span class="terminal-green">Done. Refresh the page to complete the reset.</span>`
+    };
+
+    function printLine(html) {
+      const line = document.createElement("div");
+      line.classList.add("terminal-line");
+      line.innerHTML = html;
+      output.appendChild(line);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function printPrompt(cmd) {
+      printLine(`<span class="terminal-green">fallos@terminal</span><span class="terminal-white">:</span><span class="terminal-cyan">~</span><span class="terminal-white">$ ${cmd}</span>`);
+    }
+
+    function runCommand(cmd) {
+      cmd = cmd.trim().toLowerCase();
+      printPrompt(cmd);
+
+      if (cmd === "") return;
+
+      if (cmd === "clear") {
+        output.innerHTML = "";
+        return;
+      }
+
+      if (cmd === "date") {
+        printLine(`<span class="terminal-white">${new Date().toLocaleString()}</span>`);
+        return;
+      }
+
+      if (cmd === "fallos") {
+        localStorage.removeItem("velaNotes");
+        localStorage.removeItem("fallos-wallpaper");
+        document.querySelector(".background").src = "./backgrounds/background.gif";
+        printLine(commands.fallos);
+        return;
+      }
+
+      if (commands[cmd]) {
+        printLine(commands[cmd]);
+      } else {
+        printLine(`<span style="color:#ff4444;">command not found: ${cmd}</span><span class="terminal-white">   — type </span><span class="terminal-cyan">help</span>`);
+      }
+    }
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        runCommand(input.value);
+        input.value = "";
+      }
+    });
+
+    // focus input when clicking anywhere in terminal
+    document.getElementById("terminal_content_place").addEventListener("click", function() {
+      input.focus();
+    });
+  });
+
+
+
+
+  document.getElementById("sidebar-canvas").addEventListener("click", function() {
+  handleIconTap(document.getElementById("wallpaper-app"));
+});
+
+document.getElementById("sidebar-terminal").addEventListener("click", function() {
+  handleIconTap(document.getElementById("terminal-app"));
 });
